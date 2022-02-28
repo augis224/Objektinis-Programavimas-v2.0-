@@ -8,7 +8,7 @@ struct data
     string Vardas, Pavarde;
     int Nd[25], Egz = 0, NdSk;
     double GalutinisVid, GalutinisMed;
-}temp;
+};
 
 #include "funkcijos.h"
 
