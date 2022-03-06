@@ -47,6 +47,10 @@ void Ivedimas(data& temp)
                         ArIntTikrinimas();
                     }
                 }
+                if(tnPasirinkimas == "n")
+                {
+                    temp.Egz = 0;
+                }
     }
 
     if(paPasirinkimas == "a")
@@ -73,6 +77,10 @@ void Ivedimas(data& temp)
             {
                 temp.Egz = AtsitiktinisSkaicius();
                 cout << "Egzamino ivertinimas: " << temp.Egz << "\n";
+            }
+            if(tnPasirinkimas == "n")
+            {
+                temp.Egz = 0;
             }
     }
     temp.NdSk = NdCounter + 1;
