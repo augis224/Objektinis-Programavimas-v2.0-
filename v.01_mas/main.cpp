@@ -94,7 +94,7 @@ int main()
         }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-//      Atsitiktinis duomenu isvedimas.
+//      Atsitiktinis duomenu ivedimas.
 
         if(paPasirinkimas == "a")
         {
