@@ -223,6 +223,7 @@ int studentoPridejimas(TStudentas* &pStudentai, int &pStudentuSkaicius, TStudent
 {
     pStudentuSkaicius++;
     int k = pStudentuSkaicius - 1;
+    //Jei vienas studentas.
     if(k == 0)
     {
         pStudentai[k].Vardas = pStudentas -> Vardas;
@@ -235,10 +236,10 @@ int studentoPridejimas(TStudentas* &pStudentai, int &pStudentuSkaicius, TStudent
         {
             pStudentai[k].Nd[j] = pStudentas -> Nd[j];
         }
-        pStudentai[k].NdSk = pStudentas -> NdSk;
     }
     else
     {
+    //Jei keli studentai.
         TStudentas * tempStudentai = new TStudentas[pStudentuSkaicius];
         for(int i = 0; i < k; i++)
         {
