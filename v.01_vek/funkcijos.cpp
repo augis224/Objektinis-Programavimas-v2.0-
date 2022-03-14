@@ -101,17 +101,17 @@ int AtsitiktinisSkaicius()
 void IsvedimoParuosimas()
 {
     cout << left << setw(20) << "VARDAS" << left << setw(20) << "PAVARDE"<< left << setw(20) << "GALUTINIS (VID.)" << left << setw(20) << "GALUTINIS (MED.)" << "\n";
-    for(int i; i < 76; i++)
+    for(int i = 0; i < 76; i++)
     {
         cout << "-";
     }
+    cout << "\n";
 }
 
 void Isvedimas(data& temp)
 {
     int suma = 0;
     double kaireVidurkis = 0, kaireMediana = 0, desine = 0;
-    cout << "\n" << left << setw(20) << temp.Vardas << left << setw(20) << temp.Pavarde;
 
     for(int j = 0; j < temp.NdSk; j++)
     {
@@ -149,6 +149,7 @@ void Isvedimas(data& temp)
     temp.GalutinisVid = kaireVidurkis + desine;
     temp.GalutinisMed = kaireMediana + desine;
 
+    cout << left << setw(20) << temp.Vardas << left << setw(20) << temp.Pavarde;
     cout << fixed << showpoint;
     cout << setprecision(2);
     cout << left << setw(20) << temp.GalutinisVid;
