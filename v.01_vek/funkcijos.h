@@ -5,6 +5,7 @@ void Ivedimas(data& temp);
 void ArIntTikrinimas();
 int AtsitiktinisSkaicius();
 void IsvedimoParuosimas();
+void SurusiavimasPagalPavarde(vector<data>& sarasas);
 void Isvedimas(data& temp);
 
 #endif // FUNKCIJOS_H_INCLUDED
