@@ -2,13 +2,18 @@
 #define BIBLIOTEKOS_H_INCLUDED
 
 #include <iostream>
-#include <fstream>
 #include <iomanip>
-#include <string>
+#include <stdio.h>
 #include <cstdlib>
-#include <ctime>
-#include <algorithm>
+#include <fstream>
+#include <sstream>
 #include <vector>
+#include <string>
+#include <ctime>
+#include <cstring>
+#include <chrono>
+#include <algorithm>
+#include <limits>
 
 using std::cout;
 using std::cin;
