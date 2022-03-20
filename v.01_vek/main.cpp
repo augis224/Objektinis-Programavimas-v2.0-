@@ -1,206 +1,152 @@
+#include "bibliotekos.h"
 #include "funkcijos.h"
 
-void Ivedimas(data& temp)
+int main()
 {
-    vector<int> myvector(10);
-    NdCounter = -1;
-    tnPasirinkimas = "";
-    paPasirinkimas = "";
-
-    cout << "Iveskite studento varda: ";
-    cin >> temp.Vardas;
-    cout << "Iveskite studento pavarde: "; cin >> temp.Pavarde;
-    tnPasirinkimas = "";
-
-    while(paPasirinkimas != "p" && paPasirinkimas != "a")
+    while(VedimoPasirinkimas != "t" && VedimoPasirinkimas != "n")
     {
-        cout << "Ar namu darbu ivertinimus ir egzamino pazymi irasysite patys, ar juos generuoti atsitiktinai? (p - patys, a - atsitiktinai): ";
-        cin >> paPasirinkimas;
-    }
-
-    if(paPasirinkimas == "p")
-    {
-        while(tnPasirinkimas != "t" && tnPasirinkimas != "n")
+        cout << "Ar norite sugeneruoti 5 studentu sarasu failus? (t/n): ";
+        cin >> VedimoPasirinkimas;
+        if(VedimoPasirinkimas == "t")
         {
-            cout << "Ar studentas turi bent viena n.d. ivertinima? (t/n): "; cin >> tnPasirinkimas;
-        }
-            while(tnPasirinkimas == "t")
-            {
-                NdCounter++;
-                while(cout << "Irasykite " << NdCounter + 1 << " n.d. ivertinima: " && (!(cin >> temp.Nd[NdCounter])
-                || temp.Nd[NdCounter] < 1 || temp.Nd[NdCounter] > 10))
+            FailuGeneravimas();
+            while(cout << "Kiek pazymiu tures studentai? (nuo 1 iki 25): " && (!(cin >> n)
+                || n < 1 || n > 25))
                 {
                     ArIntTikrinimas();
                 }
-                cout << "Ar norite irasyti dar viena ivertinima? (t - testi, bet koks simbolis - baigti): "; cin >> tnPasirinkimas;
-            }
-            tnPasirinkimas = ""; //Flushinam tnPasirinkimo reiksme
-            while(tnPasirinkimas != "t" && tnPasirinkimas != "n")
+            for(int i = 0; i < 5; i++)
             {
-                cout << "Ar studentas turi egzamino pazymi? (t/n): "; cin >> tnPasirinkimas;
+                EilSk *= 10;
+                DuomenuGeneravimas(n, i);
             }
-                if(tnPasirinkimas == "t")
-                {
-                    while(cout << "Irasykite egzamino pazymi: " && (!(cin >> temp.Egz)
-                    || temp.Egz < 1 || temp.Egz > 10))
-                    {
-                        ArIntTikrinimas();
-                    }
-                }
-                if(tnPasirinkimas == "n")
-                {
-                    temp.Egz = 0;
-                }
+        }
+        if(VedimoPasirinkimas == "n")
+        {
+            break;
+        }
     }
 
-    if(paPasirinkimas == "a")
+    VedimoPasirinkimas = "";
+
+    while(VedimoPasirinkimas != "p" && VedimoPasirinkimas != "f")
     {
-        srand(time(0));
-        while(tnPasirinkimas != "t" && tnPasirinkimas != "n")
-        {
-            cout << "Ar studentas turi bent viena n.d. ivertinima? (t/n): "; cin >> tnPasirinkimas;
-        }
-            while(tnPasirinkimas == "t")
-            {
-                NdCounter++;
-                cout << NdCounter + 1 << " n.d. ivertinimas: ";
-                temp.Nd[NdCounter] = AtsitiktinisSkaicius();
-                cout << temp.Nd[NdCounter];
-                cout << "\nAr norite irasyti dar viena ivertinima? (t - testi, bet koks simbolis - baigti): "; cin >> tnPasirinkimas;
-            }
-        tnPasirinkimas = ""; //Flushinam tnPasirinkimo reiksme
-        while(tnPasirinkimas != "t" && tnPasirinkimas != "n")
-        {
-            cout << "Ar studentas turi egzamino pazymi? (t/n): "; cin >> tnPasirinkimas;
-        }
-            if(tnPasirinkimas == "t")
-            {
-                temp.Egz = AtsitiktinisSkaicius();
-                cout << "Egzamino ivertinimas: " << temp.Egz << "\n";
-            }
-            if(tnPasirinkimas == "n")
-            {
-                temp.Egz = 0;
-            }
-    }
-    temp.NdSk = NdCounter + 1;
-}
-
-void ArIntTikrinimas()
-{
-    cerr << "Padarete klaida.\n";
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
-
-int AtsitiktinisSkaicius()
-{
-    return dist(mt);
-}
-
-void IsvedimoParuosimas()
-{
-    cout << left << setw(20) << "VARDAS" << left << setw(20) << "PAVARDE"<< left << setw(20) << "GALUTINIS (VID.)" << left << setw(20) << "GALUTINIS (MED.)" << "\n";
-    for(int i = 0; i < 76; i++)
-    {
-        cout << "-";
+        cout << "Ar norite duomenis ivesti patys, ar nuskaityti is failo? (p - patys, f - is failo): ";
+        cin >> VedimoPasirinkimas;
     }
     cout << "\n";
-}
 
-void SurusiavimasPagalPavarde(vector<data>& sarasas)
-{
-    for(int i = 0; i < (int)sarasas.size(); i++)
+    vector<data> sarasas;
+    data temp;
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+//  Duomenu suvedimas ir isvedimas.
+
+    if(VedimoPasirinkimas == "p")
     {
-        for(int j = i + 1; j < (int)sarasas.size(); j++)
+        VedimoPasirinkimas = "t";
+        while(VedimoPasirinkimas == "t")
         {
-            if(sarasas.at(i).Pavarde > sarasas.at(j).Pavarde)
+            StudentuCounter++;
+            cout << StudentuCounter << " STUDENTAS\n";
+            Ivedimas(temp);
+            sarasas.push_back(temp);
+            cout << "Ar norite ivesti " << StudentuCounter + 1 << " studento duomenis? (t - taip, bet koks simbolis - ne): ";
+            cin >> VedimoPasirinkimas;
+            cout << "\n";
+        }
+
+        VedimoPasirinkimas = "p";
+        SurusiavimasPagalPavarde(sarasas);
+        IsvedimoParuosimas();
+        for(int i = 0; i < (int)sarasas.size(); i++)
+        {
+            Isvedimas(sarasas.at(i));
+        }
+    }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+//  Duomenu ivedimas ir isvedimas is failo.
+
+    if(VedimoPasirinkimas == "f")
+    {
+        vector<string> Splitted;
+        string Eilute;
+        stringstream Buferis;
+
+        // Atidarom faila.
+        ifstream file("10000.txt");
+        // Exception handling.
+        try
+        {
+        if(!file) throw "Failo atidaryti nepavyko.";
+        }
+        catch(const char* txtException)
+        {
+            cout << "Klaida: " << txtException << endl;
+            return -1;
+        }
+
+        Buferis << file.rdbuf();
+        while(Buferis)
+        {
+            if(!Buferis.eof())
             {
-                swap(sarasas.at(j), sarasas.at(i));
+                getline(Buferis, Eilute);
+                Splitted.push_back(Eilute);
+            }
+            else break;
+        }
+
+        cout << "Eiluciu skaicius: " << Splitted.size() << "\n";
+        cout << "Vienos eilutes simboliu skaicius: " << Splitted.at(0).size() << "\n";
+        // Skaiciuojama kiek zodziu yra vienoje eiluteje.
+        string zodziuSkaicius = Splitted.at(0);
+        size_t NWords = zodziuSkaicius.empty() || zodziuSkaicius.back() == ' ' ? 0 : 1;
+        for(size_t s = zodziuSkaicius.size(); s > 0; --s)
+        {
+            if(zodziuSkaicius[s] == ' ' && zodziuSkaicius[s-1] != ' ')
+            {
+                ++NWords;
             }
         }
-    }
-}
+        cout << "Elementu skaicius eiluteje: " << NWords << "\n";
 
-void Isvedimas(data& temp)
-{
-    int suma = 0;
-    double kaireVidurkis = 0, kaireMediana = 0, desine = 0;
-
-    for(int j = 0; j < temp.NdSk; j++)
-    {
-        suma = suma + temp.Nd[j];
-    }
-
-    if(suma > 0)
-    {
-        kaireVidurkis = (double)suma / (double)temp.NdSk * 4 / 10;
-
-        sort(temp.Nd, temp.Nd + temp.NdSk);
-        if(temp.NdSk % 2 != 0)
+        // Griztam i failo pradzia.
+        file.clear();
+        file.seekg (0, ios::beg);
+        // Praleidziama pirma eilute.
+        file.ignore(numeric_limits<streamsize>::max(), '\n');
+        for(int i = 0; i < (int)Splitted.size() - 1; i++)
         {
-            kaireMediana = (double)temp.Nd[temp.NdSk / 2] * 4 / 10;
+            file >> temp.Vardas >> temp.Pavarde;
+            for(int i = 0; i < (int)NWords - 3; i++)
+            {
+                file >> temp.Nd[i];
+            }
+            temp.NdSk = NWords - 3;
+            file >> temp.Egz;
+            sarasas.push_back(temp);
         }
-        else
+        // Uzdarom faila.
+        file.close();
+
+        // Isvedam apdorotus duomenis i faila.
+        SurusiavimasPagalPavarde(sarasas);
+        // Nukreipiam irasyma i faila.
+        freopen("isvestis.txt", "w", stdout);
+        IsvedimoParuosimas();
+        for(int i = 0; i < (int)Splitted.size() - 1; i++)
         {
-            kaireMediana = (double)(temp.Nd[(temp.NdSk - 1) / 2] + temp.Nd[temp.NdSk / 2]) / 2.0 * 4 / 10;
+            Isvedimas(sarasas.at(i));
         }
-    }
-    else
-    {
-        kaireVidurkis = 0;
-    }
+        cout << "\n";
+        // Nukreipiam irasyma atgal i konsole.
+        freopen("CON","w",stdout);
+        cout << "\n" << "Apdoroti duomenys isvesti i faila 'isvestis.txt'." << "\n";
 
-    if(temp.Egz > 0)
-    {
-        desine = (double)temp.Egz * 6 / 10;
-    }
-    else
-    {
-        desine = 0;
-    }
-
-    temp.GalutinisVid = kaireVidurkis + desine;
-    temp.GalutinisMed = kaireMediana + desine;
-
-    cout << left << setw(20) << temp.Vardas << left << setw(20) << temp.Pavarde;
-    cout << fixed << showpoint;
-    cout << setprecision(2);
-    cout << left << setw(20) << temp.GalutinisVid;
-    cout << left << setw(20) << temp.GalutinisMed << "\n";
-}
-
-void FailuGeneravimas()
-{
-    for(int i = 0; i < 5; i++)
-    {
-        ofstream {FailuVardai[i]};
+        Splitted.clear();
     }
 }
 
-void DuomenuGeneravimas(int n, int i)
-{
-    int x = 20;
-    cout << "Eiluciu skaicius: " << EilSk << endl;
-    cout << "Start " << i << "\n";
-    ofstream ofs(FailuVardai[i]);
-    for(int j = 1; j < EilSk + 1; j++)
-    {
-        if(j > 9 && j < 99)           x = 19;
-        if(j > 99 && j < 999)         x = 18;
-        if(j > 999 && j < 9999)       x = 17;
-        if(j > 9999 && j < 99999)     x = 16;
-        if(j > 99999 && j < 999999)   x = 15;
-        if(j > 999999 && j < 9999999) x = 14;
-        if(j > 9999999)               x = 13;
-        ofs << "Vardas" << j << setw(x);
-        ofs << "Pavarde" << j << setw(x);
-        for(int k = 0; k < n; k++)
-        {
-            ofs << AtsitiktinisSkaicius() <<  setw(20);
-        }
-        ofs << AtsitiktinisSkaicius() << "\n";
-    }
-    ofs.close();
-    cout << "End " << i << "\n";
-}
+#include "funkcijos.cpp"
