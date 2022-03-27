@@ -3,14 +3,46 @@
 
 int main()
 {
-    while(VedimoPasirinkimas != "p" && VedimoPasirinkimas != "f")
+    while(VedimoPasirinkimas != "t" && VedimoPasirinkimas != "n")
     {
-        cout << "Ar norite duomenis ivesti patys, ar nuskaityti is failo? (p - patys, f - is failo): "; cin >> VedimoPasirinkimas;
+        cout << "Ar norite sugeneruoti 5 studentu sarasu failus? (t/n): ";
+        cin >> VedimoPasirinkimas;
+        if(VedimoPasirinkimas == "t")
+        {
+            FailuGeneravimas();
+            while(cout << "Kiek pazymiu tures studentai? (nuo 1 iki 25): " && (!(cin >> n)
+                || n < 1 || n > 25))
+                {
+                    ArIntTikrinimas();
+                }
+            cout << "\n";
+            for(int i = 0; i < 5; i++)
+            {
+                EilSk *= 10;
+                DuomenuGeneravimas(n, i);
+            }
+        }
+        if(VedimoPasirinkimas == "n")
+        {
+            break;
+        }
+        cout << "\n";
     }
 
+    VedimoPasirinkimas = "";
+
+    while(VedimoPasirinkimas != "p" && VedimoPasirinkimas != "f")
+    {
+        cout << "Ar norite duomenis ivesti patys, ar nuskaityti is failo? (p - patys, f - is failo): ";
+        cin >> VedimoPasirinkimas;
+    }
     cout << "\n";
+
     vector<data> sarasas;
     data temp;
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+//  Duomenu suvedimas ir isvedimas.
 
     if(VedimoPasirinkimas == "p")
     {
@@ -26,40 +58,97 @@ int main()
             cout << "\n";
         }
 
+        VedimoPasirinkimas = "p";
+        sort(sarasas.begin(), sarasas.end(), compare);
         IsvedimoParuosimas();
-        for(int i = 0; i < sarasas.size(); i++)
+        for(int i = 0; i < (int)sarasas.size(); i++)
         {
             Isvedimas(sarasas.at(i));
         }
     }
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+//  Duomenu ivedimas ir isvedimas is failo.
+
     if(VedimoPasirinkimas == "f")
     {
-        ifstream file("kursiokai.txt");
+        vector<string> Splitted;
+        string Eilute;
+        stringstream Buferis;
 
-        if(!file)
+        // Atidarom faila.
+        ifstream file("studentai4.txt");
+        // Exception handling.
+        try
         {
-            cerr << "Failo 'kursiokai.txt' atidaryti nepavyko." << endl;
-            terminate();
+        if(!file) throw "Failo atidaryti nepavyko.";
+        }
+        catch(const char* txtException)
+        {
+            cout << "Klaida: " << txtException << endl;
+            return -1;
         }
 
-        for(int i = 0; i < 10; i++)
+        Buferis << file.rdbuf();
+        while(Buferis)
+        {
+            if(!Buferis.eof())
+            {
+                getline(Buferis, Eilute);
+                Splitted.push_back(Eilute);
+            }
+            else break;
+        }
+
+        cout << "Eiluciu skaicius: " << Splitted.size() << "\n";
+        cout << "Vienos eilutes simboliu skaicius: " << Splitted.at(0).size() << "\n";
+        // Skaiciuojama kiek zodziu yra vienoje eiluteje.
+        string zodziuSkaicius = Splitted.at(0);
+        size_t NWords = zodziuSkaicius.empty() || zodziuSkaicius.back() == ' ' ? 0 : 1;
+        for(size_t s = zodziuSkaicius.size(); s > 0; --s)
+        {
+            if(zodziuSkaicius[s] == ' ' && zodziuSkaicius[s-1] != ' ')
+            {
+                ++NWords;
+            }
+        }
+        cout << "Elementu skaicius eiluteje: " << NWords << "\n";
+
+        // Griztam i failo pradzia.
+        file.clear();
+        file.seekg (0, ios::beg);
+        // Praleidziama pirma eilute.
+        file.ignore(numeric_limits<streamsize>::max(), '\n');
+        for(int i = 0; i < (int)Splitted.size() - 1; i++)
         {
             file >> temp.Vardas >> temp.Pavarde;
-            for(int i = 0; i < 15; i++)
+            for(int i = 0; i < (int)NWords - 3; i++)
             {
                 file >> temp.Nd[i];
-                temp.NdSk = 15;
             }
+            temp.NdSk = NWords - 3;
             file >> temp.Egz;
             sarasas.push_back(temp);
         }
-
+        // Uzdarom faila.
+        file.close();
+        // Surusiuojam isvedima pagal pavarde.
+        sort(sarasas.begin(), sarasas.end(), compare);
+        // Nukreipiam irasyma i faila.
+        freopen("isvestis.txt", "w", stdout);
+        // Isvedam apdorotus duomenis i faila.
         IsvedimoParuosimas();
-        for(int i = 0; i < sarasas.size(); i++)
+        for(int i = 0; i < (int)Splitted.size() - 1; i++)
         {
             Isvedimas(sarasas.at(i));
         }
+        cout << "\n";
+        // Nukreipiam irasyma atgal i konsole.
+        freopen("CON","w",stdout);
+        cout << "\n" << "Apdoroti duomenys isvesti i faila 'isvestis.txt'." << "\n";
+
+        Splitted.clear();
+        sarasas.clear();
     }
 }
 
