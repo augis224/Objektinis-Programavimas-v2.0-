@@ -95,23 +95,40 @@ void ArIntTikrinimas()
 
 int AtsitiktinisSkaicius()
 {
-    return rand() % 10 + 1;
+    return dist(mt);
 }
 
 void IsvedimoParuosimas()
 {
     cout << left << setw(20) << "VARDAS" << left << setw(20) << "PAVARDE"<< left << setw(20) << "GALUTINIS (VID.)" << left << setw(20) << "GALUTINIS (MED.)" << "\n";
-    for(int i; i < 76; i++)
+    for(int i = 0; i < 76; i++)
     {
         cout << "-";
     }
+    cout << "\n";
+}
+
+void SurusiavimasPagalPavarde(vector<data>& sarasas)
+{
+    for(int i = 0; i < (int)sarasas.size(); i++)
+    {
+        for(int j = i + 1; j < (int)sarasas.size(); j++)
+        {
+            if(sarasas.at(i).Pavarde > sarasas.at(j).Pavarde)
+            {
+                swap(sarasas.at(j), sarasas.at(i));
+            }
+        }
+    }
+
+    cout << "sarasas.begin(): " << "0\n";
+    //cout << "sarasas.end(): " << sarasas.size();
 }
 
 void Isvedimas(data& temp)
 {
     int suma = 0;
     double kaireVidurkis = 0, kaireMediana = 0, desine = 0;
-    cout << "\n" << left << setw(20) << temp.Vardas << left << setw(20) << temp.Pavarde;
 
     for(int j = 0; j < temp.NdSk; j++)
     {
@@ -149,8 +166,44 @@ void Isvedimas(data& temp)
     temp.GalutinisVid = kaireVidurkis + desine;
     temp.GalutinisMed = kaireMediana + desine;
 
+    cout << left << setw(20) << temp.Vardas << left << setw(20) << temp.Pavarde;
     cout << fixed << showpoint;
     cout << setprecision(2);
     cout << left << setw(20) << temp.GalutinisVid;
     cout << left << setw(20) << temp.GalutinisMed << "\n";
+}
+
+void FailuGeneravimas()
+{
+    for(int i = 0; i < 5; i++)
+    {
+        ofstream {FailuVardai[i]};
+    }
+}
+
+void DuomenuGeneravimas(int n, int i)
+{
+    int x = 20;
+    cout << "Eiluciu skaicius: " << EilSk << endl;
+    cout << "Start " << i << "\n";
+    ofstream ofs(FailuVardai[i]);
+    for(int j = 1; j < EilSk + 1; j++)
+    {
+        if(j > 9 && j < 99)           x = 19;
+        if(j > 99 && j < 999)         x = 18;
+        if(j > 999 && j < 9999)       x = 17;
+        if(j > 9999 && j < 99999)     x = 16;
+        if(j > 99999 && j < 999999)   x = 15;
+        if(j > 999999 && j < 9999999) x = 14;
+        if(j > 9999999)               x = 13;
+        ofs << "Vardas" << j << setw(x);
+        ofs << "Pavarde" << j << setw(x);
+        for(int k = 0; k < n; k++)
+        {
+            ofs << AtsitiktinisSkaicius() <<  setw(20);
+        }
+        ofs << AtsitiktinisSkaicius() << "\n";
+    }
+    ofs.close();
+    cout << "End " << i << "\n";
 }
