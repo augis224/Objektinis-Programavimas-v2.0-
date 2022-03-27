@@ -95,23 +95,28 @@ void ArIntTikrinimas()
 
 int AtsitiktinisSkaicius()
 {
-    return rand() % 10 + 1;
+    return dist(mt);
 }
 
 void IsvedimoParuosimas()
 {
     cout << left << setw(20) << "VARDAS" << left << setw(20) << "PAVARDE"<< left << setw(20) << "GALUTINIS (VID.)" << left << setw(20) << "GALUTINIS (MED.)" << "\n";
-    for(int i; i < 76; i++)
+    for(int i = 0; i < 76; i++)
     {
         cout << "-";
     }
+    cout << "\n";
+}
+
+bool compare(const data& x, const data& y)
+{
+    return x.Pavarde < y.Pavarde;
 }
 
 void Isvedimas(data& temp)
 {
     int suma = 0;
     double kaireVidurkis = 0, kaireMediana = 0, desine = 0;
-    cout << "\n" << left << setw(20) << temp.Vardas << left << setw(20) << temp.Pavarde;
 
     for(int j = 0; j < temp.NdSk; j++)
     {
@@ -149,8 +154,51 @@ void Isvedimas(data& temp)
     temp.GalutinisVid = kaireVidurkis + desine;
     temp.GalutinisMed = kaireMediana + desine;
 
+    cout << left << setw(20) << temp.Vardas << left << setw(20) << temp.Pavarde;
     cout << fixed << showpoint;
     cout << setprecision(2);
     cout << left << setw(20) << temp.GalutinisVid;
     cout << left << setw(20) << temp.GalutinisMed << "\n";
+}
+
+void FailuGeneravimas()
+{
+    for(int i = 0; i < 5; i++)
+    {
+        ofstream {FailuVardai[i]};
+    }
+}
+
+void DuomenuGeneravimas(int n, int i)
+{
+    int x = 20;
+    auto start = chrono::high_resolution_clock::now();
+    ofstream ofs(FailuVardai[i]);
+    ofs << "VARDAS" << setw(21) << "PAVARDE" << setw(22);
+    for(int k = 1; k < n + 1; k++)
+    {
+        ofs << "ND" << k << setw(19);
+    }
+    ofs << "EGZ" << "\n";
+    for(int j = 1; j < EilSk + 1; j++)
+    {
+        if(j > 9 && j < 99)           x = 19;
+        if(j > 99 && j < 999)         x = 18;
+        if(j > 999 && j < 9999)       x = 17;
+        if(j > 9999 && j < 99999)     x = 16;
+        if(j > 99999 && j < 999999)   x = 15;
+        if(j > 999999 && j < 9999999) x = 14;
+        if(j > 9999999)               x = 13;
+        ofs << "Vardas" << j << setw(x);
+        ofs << "Pavarde" << j << setw(x);
+        for(int k = 0; k < n; k++)
+        {
+            ofs << AtsitiktinisSkaicius() << setw(20);
+        }
+        ofs << AtsitiktinisSkaicius() << "\n";
+    }
+    ofs.close();
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> diff = end - start;
+    cout << "Generuoti faila '" << EilSk << ".txt' uztruko: " << diff.count() << " s\n";
 }
