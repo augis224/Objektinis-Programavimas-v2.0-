@@ -5,6 +5,7 @@ int main()
 {
     vector<data> sarasas;
     data temp;
+    int n = 0;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 //  5 studentu sarasu failu generavimas (1000, 10000, 100000, 1000000 ir 10000000 studentu).
@@ -22,10 +23,11 @@ int main()
                 ArIntTikrinimas();
             }
             cout << "\n";
+            int EilSk = 100;
             for(int i = 0; i < 5; i++)
             {
                 EilSk *= 10;
-                DuomenuGeneravimas(n, i);
+                DuomenuGeneravimas(n, i, EilSk);
             }
         }
         if(VedimoPasirinkimas == "n")
@@ -65,14 +67,15 @@ int main()
         cin >> VedimoPasirinkimas;
         if(VedimoPasirinkimas == "t")
         {
-            for(int i = 0; i <= 4; i++)
+            for(int i = 0; i < 5; i++)
             {
                 cout << "\n";
-                vector<string> Splitted;
                 vector<data> geri;
                 vector<data> blogi;
-                string Eilute;
+                string Eilute, zyme = "ND";
+                size_t position = 0;
                 stringstream Buferis;
+                n = 0;
 
                 // Atidarom faila.
                 ifstream file(FailuVardai[i]);
@@ -89,52 +92,33 @@ int main()
 
                 // Nuskaitom visa failo turini i buferi.
                 auto start1 = chrono::high_resolution_clock::now();
-                Buferis << file.rdbuf();
-                while(Buferis)
-                {
-                    if(!Buferis.eof())
-                    {
-                        getline(Buferis, Eilute);
-                        Splitted.push_back(Eilute);
-                    }
-                    else break;
-                }
-                auto end1 = chrono::high_resolution_clock::now();
-                chrono::duration<double> diff1 = end1 - start1;
-                cout << "Duomenu nuskaitymas is failo '" << FailuVardai[i] << "' uztruko: " << diff1.count() << "s\n";
-
-                // Suskaiciuojam kiek zodziu yra vienoje eiluteje.
-                string zodziuSkaicius = Splitted.at(0);
-                size_t NWords = zodziuSkaicius.empty() || zodziuSkaicius.back() == ' ' ? 0 : 1;
-                for(size_t s = zodziuSkaicius.size(); s > 0; --s)
-                {
-                    if(zodziuSkaicius[s] == ' ' && zodziuSkaicius[s-1] != ' ')
-                    {
-                        ++NWords;
-                    }
-                }
-
-                // Griztam i failo pradzia.
-                file.clear();
-                file.seekg (0, ios::beg);
                 // Praleidziam pirma eilute.
-                file.ignore(numeric_limits<streamsize>::max(), '\n');
-                // Suskirstom gerus ir blogus studentus i du vektorius.
-                auto start2 = chrono::high_resolution_clock::now();
-                for(int i = 0; i < (int)Splitted.size() - 2; i++)
+                //nfile.ignore(numeric_limits<streamsize>::max(), '\n');
+                Buferis << file.rdbuf();
+
+                getline(Buferis, Eilute);
+                while ((( position = Eilute.find(zyme))) != std::string::npos)
                 {
-                    file >> temp.Vardas >> temp.Pavarde;
+                    n++;
+                    Eilute.erase(0, position + zyme.length());
+                }
+
+                while(!Buferis.eof())
+                {
+                    Buferis >> temp.Vardas;
+                    Buferis >> temp.Pavarde;
                     double kaire = 0, desine = 0;
                     int suma = 0;
-                    for(int i = 0; i < (int)NWords - 3; i++)
+                    for(int i = 0; i < n; i++)
                     {
-                        file >> temp.Nd[i];
+                        Buferis >> temp.Nd[i];
                         suma += temp.Nd[i];
                     }
-                    temp.NdSk = NWords - 3;
+                    Buferis >> temp.Egz;
+                    temp.NdSk = n;
                     kaire = (double)suma / (double)temp.NdSk * 4 / 10;
-                    file >> temp.Egz;
                     desine = (double)temp.Egz * 6 / 10;
+                    temp.GalutinisVid = kaire + desine;
                     if(desine + kaire < 5)
                     {
                         blogi.push_back(temp);
@@ -144,19 +128,18 @@ int main()
                         geri.push_back(temp);
                     }
                 }
-                auto end2 = chrono::high_resolution_clock::now();
-                chrono::duration<double> diff2 = end2 - start2;
-                cout << "Studentu isrusiavimas i dvi grupes ('geru' ir 'blogu') uztruko: " << diff2.count() << "s\n";
-                // Uzdarom faila.
+                auto end1 = chrono::high_resolution_clock::now();
+                chrono::duration<double> diff1 = end1 - start1;
+                cout << "Duomenu nuskaitymas is failo '" << FailuVardai[i] << "' ir suskirstymas i dvi grupes ('geru' ir 'blogu') uztruko: " << diff1.count() << "s\n";
                 file.close();
 
                 // Surusiuojam geru ir blogu studentu isvedima pagal pavarde.
-                auto start4 = chrono::high_resolution_clock::now();
+                auto start2 = chrono::high_resolution_clock::now();
                 sort(geri.begin(), geri.end(), compare);
                 sort(blogi.begin(), blogi.end(), compare);
-                auto end4 = chrono::high_resolution_clock::now();
-                chrono::duration<double> diff4 = end4 - start4;
-                cout << "'Geru' ir 'blogu' studentu surusiavimas pagal pavarde uztruko: " << diff4.count() << "s\n";
+                auto end2 = chrono::high_resolution_clock::now();
+                chrono::duration<double> diff2 = end2 - start2;
+                cout << "'Geru' ir 'blogu' studentu surusiavimas pagal pavarde uztruko: " << diff2.count() << "s\n";
 
                 // Nukreipiam irasyma i "geru" faila.
                 freopen(KituFailuVardai[e], "w", stdout);
@@ -165,19 +148,22 @@ int main()
                 IsvedimoParuosimas();
                 for(int i = 0; i < (int)geri.size(); i++)
                 {
-                    Isvedimas(geri.at(i));
+                    Isvedimas2(geri.at(i));
                 }
                 fclose(stderr);
+
                 // Nukreipiam irasyma i "blogu" faila.
                 freopen(KituFailuVardai[ea], "w", stdout);
+
                 // Isvedam apdorotus blogu studentu duomenis i faila.
                 IsvedimoParuosimas();
                 for(int i = 0; i < (int)blogi.size(); i++)
                 {
-                    Isvedimas(blogi.at(i));
+                    Isvedimas2(blogi.at(i));
                 }
                 fclose(stderr);
-                e = e + 2, ea = ea + 2;
+;
+                e += 2, ea += 2;
                 cout << "\n";
 
                 // Nukreipiam irasyma atgal i konsole.
@@ -187,11 +173,9 @@ int main()
                 cout << "Studentu isvedimas i du failus '" << KituFailuVardai[e - 2] << "' (Vidurkis > 5) ir '" << KituFailuVardai[ea - 2]
                 << "' (Vidurkis < 5) uztruko: " << diff3.count() << "s\n";
                 cout << "Bendras darbo su failu '" << FailuVardai[i] << "' laikas: "
-                << diff1.count() + diff2.count() + diff3.count() + diff4.count() << "s\n";
+                << diff1.count() + diff2.count() + diff3.count() << "s\n";
 
                 // Isvalom visus naudotus vektorius.
-                Splitted.clear();
-                sarasas.clear();
                 geri.clear();
                 blogi.clear();
             }
@@ -220,6 +204,7 @@ int main()
     if(VedimoPasirinkimas == "p")
     {
         VedimoPasirinkimas = "t";
+        int StudentuCounter = 0;
         while(VedimoPasirinkimas == "t")
         {
             StudentuCounter++;
