@@ -3,7 +3,7 @@
 void Ivedimas(data& temp)
 {
     vector<int> myvector(10);
-    NdCounter = -1;
+    int NdCounter = -1;
     tnPasirinkimas = "";
     paPasirinkimas = "";
 
@@ -177,7 +177,7 @@ void KituFailuGeneravimas()
     }
 }
 
-void DuomenuGeneravimas(int n, int i)
+void DuomenuGeneravimas(int n, int i, int EilSk)
 {
     int x = 20;
     auto start = chrono::high_resolution_clock::now();
@@ -209,4 +209,27 @@ void DuomenuGeneravimas(int n, int i)
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> diff = end - start;
     cout << "Generuoti faila '" << EilSk << ".txt' uztruko: " << diff.count() << "s\n";
+}
+
+void Isvedimas2(data& temp)
+{
+    double kaireMediana = 0;
+
+    sort(temp.Nd, temp.Nd + temp.NdSk);
+    if(temp.NdSk % 2 != 0)
+    {
+        kaireMediana = (double)temp.Nd[temp.NdSk / 2] * 4 / 10;
+    }
+    else
+    {
+        kaireMediana = (double)(temp.Nd[(temp.NdSk - 1) / 2] + temp.Nd[temp.NdSk / 2]) / 2.0 * 4 / 10;
+    }
+
+    temp.GalutinisMed = kaireMediana + (double)temp.Egz * 6 / 10;
+
+    cout << left << setw(20) << temp.Vardas << left << setw(20) << temp.Pavarde;
+    cout << fixed << showpoint;
+    cout << setprecision(2);
+    cout << left << setw(20) << temp.GalutinisVid;
+    cout << left << setw(20) << temp.GalutinisMed << "\n";
 }
