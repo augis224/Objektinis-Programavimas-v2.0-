@@ -9,6 +9,7 @@ bool compare(const data&, const data&);
 void Isvedimas(data& temp);
 void FailuGeneravimas();
 void KituFailuGeneravimas();
-void DuomenuGeneravimas(int n, int i);
+void DuomenuGeneravimas(int n, int i, int EilSk);
+void Isvedimas2(data& temp);
 
 #endif // FUNKCIJOS_H_INCLUDED
