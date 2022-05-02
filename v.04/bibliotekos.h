@@ -21,7 +21,6 @@ using std::cin;
 using std::string;
 using namespace std;
 
-int StudentuCounter = 0, NdCounter, n, EilSk = 100;
 string tnPasirinkimas, paPasirinkimas, VedimoPasirinkimas;
 string FailuVardai[5] = {"1000.txt", "10000.txt", "100000.txt", "1000000.txt", "10000000.txt"};
 char KituFailuVardai[10][200] = {"geri_1000.txt", "blogi_1000.txt", "geri_10000.txt", "blogi_10000.txt",
