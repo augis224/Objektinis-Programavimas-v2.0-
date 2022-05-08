@@ -34,3 +34,11 @@ Draugo kompiuteris (deque):
 
 Konteinerių palyginimas (draugo kompas):
 
+![v 05_readme](https://user-images.githubusercontent.com/100161683/167318444-d6c205ff-fb11-4eaf-9c7d-2b3c56cd073a.png)
+
+*Čia kiekvieno konteinerio lentelės:
+- pirmas stupelis - nuskaitymas iš failo į konteinerį;
+- antras stulpelis - surūšiavimas pagal pavardę;
+- trečia stulpelis - išskyrimas į vieną iš dviejų konteinerių pagal vidurkį.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
