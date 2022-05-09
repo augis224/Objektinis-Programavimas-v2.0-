@@ -1,8 +1,8 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Tyrimai atlikti su dviem kompais:
-- mano - leisgyvis;
-- draugo - normaliai veikiantis.
+- mano - leisgyvis (Intel(R) Core(TM) i7-4702MQ CPU, 8GB RAM, SanDisk SSD U110 16GB SCSI Disk Device);
+- draugo - normaliai veikiantis (AMD Ryzen 5 1600 Six-Core Processor, 8GB RAM, ---).
 
 Mano kompiuteris (vector):
 
