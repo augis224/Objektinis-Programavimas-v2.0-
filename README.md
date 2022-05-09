@@ -43,7 +43,7 @@ Konteinerių palyginimas (draugo kompas):
 
 Išvados:
 - nuskaitymo laikas tarp konteinerių skiriasi minimaliai;
-- rūšiavimas pagal pavardę: greičiausias - list, o lėčiausias - deque;
+- rūšiavimas pagal pavardę: greičiausias - list, lėčiausias - deque;
 - išskyrimas į vieną iš dviejų konteinerių pagal vidurkį: greičiausias - deque, lėčiausias - list.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
