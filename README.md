@@ -41,4 +41,9 @@ Konteinerių palyginimas (draugo kompas):
 - antras stulpelis - surūšiavimas pagal pavardę;
 - trečia stulpelis - išskyrimas į vieną iš dviejų konteinerių pagal vidurkį.
 
+Išvados:
+- nuskaitymo laikas tarp konteinerių skiriasi minimaliai;
+- rūšiavimas pagal pavardę: greičiausias - list, o lėčiausias - deque;
+- išskyrimas į vieną iš dviejų konteinerių pagal vidurkį: greičiausias - deque, lėčiausias - list.
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
