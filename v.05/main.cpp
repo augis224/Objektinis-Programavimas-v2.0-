@@ -60,9 +60,9 @@ int main()
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 //  Kiekvieno sugeneruoto studentu saraso failo suskirstymas i 2 failus pagal vidurki.
 
-    while(VedimoPasirinkimas != "1" && VedimoPasirinkimas != "2" && VedimoPasirinkimas != "3")
+    while(VedimoPasirinkimas != "1" && VedimoPasirinkimas != "2" && VedimoPasirinkimas != "3" && VedimoPasirinkimas != "4")
     {
-        cout << "Kuri konteineri naudosite (1 - vector, 2 - list, 3 - deque): ";
+        cout << "Kuri konteineri naudosite (1 - vector, 2 - list, 3 - deque, 4 - praleisti sia dali): ";
         cin >> VedimoPasirinkimas;
         if(VedimoPasirinkimas == "1")
         {
@@ -75,6 +75,10 @@ int main()
         if(VedimoPasirinkimas == "3")
         {
             Deque();
+        }
+        if(VedimoPasirinkimas == "4")
+        {
+            break;
         }
     }
     cout << "\n";
