@@ -1,11 +1,17 @@
 int Vector(data& temp)
 {
     vector<data> sarasas;
-    int e = 0, ea = 1, suma, n;
+    int e = 0, ea = 1, suma, n, pasirinkimas = 0;
     vector<data> geri;
     vector<data> blogi;
     string Eilute, zyme = "ND";
     size_t position = 0;
+
+    while(pasirinkimas != 1 && pasirinkimas != 2)
+    {
+        cout << "Pasirinkite strategija (1/2): ";
+        cin >> pasirinkimas;
+    }
 
     cout << "\nVECTOR";
     for(int i = 0; i < 5; i++)
@@ -26,8 +32,9 @@ int Vector(data& temp)
             return -1;
         }
 
-        auto start1 = chrono::high_resolution_clock::now();
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
         // Nuskaitom visa failo turini i buferi.
+        auto start1 = chrono::high_resolution_clock::now();
         Buferis << file.rdbuf();
         getline(Buferis, Eilute);
         while ((( position = Eilute.find(zyme))) != std::string::npos)
@@ -57,12 +64,12 @@ int Vector(data& temp)
             }
             sarasas.push_back(temp);
         }
-
         auto end1 = chrono::high_resolution_clock::now();
         chrono::duration<double> diff1 = end1 - start1;
         cout << "Duomenu nuskaitymas is failo '" << FailuVardai[i] << "' uztruko: " << diff1.count() << "s\n";
         file.close();
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
         // Surusiuojam geru ir blogu studentu isvedima pagal pavarde.
         auto start2 = chrono::high_resolution_clock::now();
         sort(sarasas.begin(), sarasas.end(), compare);
@@ -70,49 +77,97 @@ int Vector(data& temp)
         chrono::duration<double> diff2 = end2 - start2;
         cout << "'Geru' ir 'blogu' studentu surusiavimas pagal pavarde uztruko: " << diff2.count() << "s\n";
 
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
+        // Isskirstom konteineri pagal studento vidurki.
         auto start3 = chrono::high_resolution_clock::now();
-        for(auto& stud : sarasas)
+        if(pasirinkimas == 1)
         {
-            if(stud.GalutinisVid >= 5) geri.push_back(stud);
-            else blogi.push_back(stud);
+            for(auto& stud : sarasas)
+            {
+                if(stud.GalutinisVid >= 5) geri.push_back(stud);
+                else blogi.push_back(stud);
+            }
+        }
+        if(pasirinkimas == 2)
+        {
+            for(auto& stud : sarasas)
+            {
+                if(stud.GalutinisVid >= 5) geri.push_back(stud);
+            }
+            sarasas.erase(remove_if(sarasas.begin(), sarasas.end(), [&](data const& sarasas) {return sarasas.GalutinisVid >= 5;}), sarasas.end());
         }
         auto end3 = chrono::high_resolution_clock::now();
         chrono::duration<double> diff3 = end3 - start3;
         cout << "'Geru' ir 'blogu' studentu isskirstymas uztruko: " << diff3.count() << "s\n";
-        sarasas.clear();
+        if(pasirinkimas == 1) sarasas.clear();
 
-        // Isvedam apdorotus geru studentu duomenis i faila.
-        auto start4 = chrono::high_resolution_clock::now();
-        ofstream file1(KituFailuVardai[e]);
-        file1 << left << setw(20) << "VARDAS" << left << setw(20) << "PAVARDE"<< left << setw(20) << "GALUTINIS (VID.)" << left << setw(20) << "GALUTINIS (MED.)" << "\n";
-        file1 << "----------------------------------------------------------------------------" << "\n";
-        for(vector<data>::const_iterator it = geri.begin(); it != geri.end(); ++it)
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
+        // Isvedam is dvieju konteineriu i du failus.
+        if(pasirinkimas == 1)
         {
-            file1 << left << setw(20) <<  (*it).Vardas << left << setw(20) << (*it).Pavarde << fixed << showpoint << setprecision(2) << left << setw(20) << (*it).GalutinisVid << left << setw(20) << (*it).GalutinisMed << "\n";
-        }
-        file1.close();
+            // Isvedam apdorotus geru studentu duomenis i faila.
+            auto start4 = chrono::high_resolution_clock::now();
+            ofstream file1(KituFailuVardai[e]);
+            file1 << left << setw(20) << "VARDAS" << left << setw(20) << "PAVARDE"<< left << setw(20) << "GALUTINIS (VID.)" << left << setw(20) << "GALUTINIS (MED.)" << "\n";
+            file1 << "----------------------------------------------------------------------------" << "\n";
+            for(vector<data>::const_iterator it = geri.begin(); it != geri.end(); ++it)
+            {
+                file1 << left << setw(20) <<  (*it).Vardas << left << setw(20) << (*it).Pavarde << fixed << showpoint << setprecision(2) << left << setw(20) << (*it).GalutinisVid << left << setw(20) << (*it).GalutinisMed << "\n";
+            }
+            file1.close();
 
-        // Isvedam apdorotus blogu studentu duomenis i faila.
-        ofstream file2(KituFailuVardai[ea]);
-        file2 << left << setw(20) << "VARDAS" << left << setw(20) << "PAVARDE"<< left << setw(20) << "GALUTINIS (VID.)" << left << setw(20) << "GALUTINIS (MED.)" << "\n";
-        file2 << "----------------------------------------------------------------------------" << "\n";
-        for(vector<data>::const_iterator it = blogi.begin(); it != blogi.end(); ++it)
+            // Isvedam apdorotus blogu studentu duomenis i faila.
+            ofstream file2(KituFailuVardai[ea]);
+            file2 << left << setw(20) << "VARDAS" << left << setw(20) << "PAVARDE"<< left << setw(20) << "GALUTINIS (VID.)" << left << setw(20) << "GALUTINIS (MED.)" << "\n";
+            file2 << "----------------------------------------------------------------------------" << "\n";
+            for(vector<data>::const_iterator it = blogi.begin(); it != blogi.end(); ++it)
+            {
+                file2 << left << setw(20) << (*it).Vardas << left << setw(20) << (*it).Pavarde << fixed << showpoint << setprecision(2) << left << setw(20) << (*it).GalutinisVid << left << setw(20) << (*it).GalutinisMed << "\n";
+            }
+            file2.close();
+            e += 2, ea += 2;
+
+            auto end4 = chrono::high_resolution_clock::now();
+            chrono::duration<double> diff4 = end4 - start4;
+            //cout << "Studentu isvedimas i du failus '" << KituFailuVardai[e - 2] << "' (Vidurkis > 5) ir '" << KituFailuVardai[ea - 2]
+            //<< "' (Vidurkis < 5) uztruko: " << diff4.count() << "s\n";
+            cout << "Bendras darbo su failu '" << FailuVardai[i] << "' laikas: "
+                 << diff1.count() + diff2.count() + diff3.count() + diff4.count() << "s\n";
+        }
+        if(pasirinkimas == 2)
         {
-            file2 << left << setw(20) << (*it).Vardas << left << setw(20) << (*it).Pavarde << fixed << showpoint << setprecision(2) << left << setw(20) << (*it).GalutinisVid << left << setw(20) << (*it).GalutinisMed << "\n";
+            // Isvedam apdorotus geru studentu duomenis i faila.
+            auto start4 = chrono::high_resolution_clock::now();
+            ofstream file1(KituFailuVardai[e]);
+            file1 << left << setw(20) << "VARDAS" << left << setw(20) << "PAVARDE"<< left << setw(20) << "GALUTINIS (VID.)" << left << setw(20) << "GALUTINIS (MED.)" << "\n";
+            file1 << "----------------------------------------------------------------------------" << "\n";
+            for(vector<data>::const_iterator it = geri.begin(); it != geri.end(); ++it)
+            {
+                file1 << left << setw(20) <<  (*it).Vardas << left << setw(20) << (*it).Pavarde << fixed << showpoint << setprecision(2) << left << setw(20) << (*it).GalutinisVid << left << setw(20) << (*it).GalutinisMed << "\n";
+            }
+            file1.close();
+
+            // Isvedam apdorotus blogu studentu duomenis i faila.
+            ofstream file2(KituFailuVardai[ea]);
+            file2 << left << setw(20) << "VARDAS" << left << setw(20) << "PAVARDE"<< left << setw(20) << "GALUTINIS (VID.)" << left << setw(20) << "GALUTINIS (MED.)" << "\n";
+            file2 << "----------------------------------------------------------------------------" << "\n";
+            for(vector<data>::const_iterator it = sarasas.begin(); it != sarasas.end(); ++it)
+            {
+                file2 << left << setw(20) << (*it).Vardas << left << setw(20) << (*it).Pavarde << fixed << showpoint << setprecision(2) << left << setw(20) << (*it).GalutinisVid << left << setw(20) << (*it).GalutinisMed << "\n";
+            }
+            file2.close();
+            e += 2, ea += 2;
+
+            auto end4 = chrono::high_resolution_clock::now();
+            chrono::duration<double> diff4 = end4 - start4;
+            //cout << "Studentu isvedimas i du failus '" << KituFailuVardai[e - 2] << "' (Vidurkis > 5) ir '" << KituFailuVardai[ea - 2]
+            //<< "' (Vidurkis < 5) uztruko: " << diff4.count() << "s\n";
+            cout << "Bendras darbo su failu '" << FailuVardai[i] << "' laikas: "
+                 << diff1.count() + diff2.count() + diff3.count() + diff4.count() << "s\n";
         }
-        file2.close();
-        e += 2, ea += 2;
-
-        auto end4 = chrono::high_resolution_clock::now();
-        chrono::duration<double> diff4 = end4 - start4;
-        //cout << "Studentu isvedimas i du failus '" << KituFailuVardai[e - 2] << "' (Vidurkis > 5) ir '" << KituFailuVardai[ea - 2]
-             //<< "' (Vidurkis < 5) uztruko: " << diff4.count() << "s\n";
-        cout << "Bendras darbo su failu '" << FailuVardai[i] << "' laikas: "
-             << diff1.count() + diff2.count() + diff3.count() + diff4.count() << "s\n";
-
-        // Isvalom visus naudotus vektorius.
         geri.clear();
-        blogi.clear();
+        if(pasirinkimas == 1) blogi.clear();
+        if(pasirinkimas == 2) sarasas.clear();
     }
     return 0;
 }
