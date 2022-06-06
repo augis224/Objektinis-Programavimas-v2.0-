@@ -1,11 +1,17 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-v1.0 (struct) ir v1.1 (class) spartos palyginimas:
+Naudojimosi instrukcija:
 
-![lyginimas](https://user-images.githubusercontent.com/100161683/172133303-524eecdb-39fe-490f-8113-54f2bc4441a8.png)
+- Sukompiliavus programą, turėsite pasirinkti įvesti vieną iš dviejų skaičių: 1 arba 2:
+  - pasirinkimas 1 - žodžių, kurie tekste pasikartoja daugiau nei vieną kartą ir cross reference lentelės išvedimas.
+  - pasirinkimas 2 - URL radimas tekste.
+- Programai taip pat galite pateikti ir savo tekstus. Tereikia atsidaryti 'Tekstas.txt' arba 'Url.txt' ir įklijuoti savo tekstą. 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Eksperimentinė v1.1 spartos analizė, priklausomai nuo kompiliatoriaus optimizavimo lygio (O1, O2, O3):
+Įdiegimo instrukcija:
 
-![flagai](https://user-images.githubusercontent.com/100161683/172133562-c8729cbb-ea19-492b-915d-98abbea859f5.png)
+- Atsisiųskite 'papildomaUzd.exe' ir paleiskite šį failą.
+- Pasirinkite 'Destination Folder'. Įprastu atveju tai bus Jūsų Desktop'as.
+- Spauskite Install.
+- Atidarykite 'papildomaUzd.cbp' per savo naudojamą IDE.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
