@@ -49,23 +49,21 @@ public:
         nd.clear();
     };
 
-    //RULE OF FIVE
     // move constructor
-    Studentas(Studentas&& that)
-    : vardas(0)
-    , pavarde(0)
-    , nd(0)
-    , egz(0)
-    , galutinisVid(0)
-    , galutinisMed(0)
+    Studentas(Studentas&& source)
     {
-        swap(*this, that);
-    }
-    //move assignment operator
-    Studentas& operator=(Studentas&& that)
-    {
-        swap(*this, that);
-        return *this;
+        this->vardas = source.vardas;
+        this->pavarde = source.pavarde;
+        this->nd = source.nd;
+        this->egz = source.egz;
+        this->galutinisVid = source.galutinisVid;
+        this->galutinisMed = source.galutinisMed;
+        source.vardas = "";
+        source.pavarde = "";
+        source.nd = {0};
+        source.egz = 0;
+        source.galutinisVid = 0;
+        source.galutinisMed = 0;
     }
 
     //setters & getters
