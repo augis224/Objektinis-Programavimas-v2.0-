@@ -8,13 +8,6 @@ int main()
     vector<Studentas> sarasas;
     int n = 0;
 
-    //Studentas a;
-    //Studentas d(a);     //copy
-
-    //Studentas b = a;    //copy assingment
-
-    //a.~Studentas();     //destructor
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 //  5 studentu sarasu failu generavimas (1000, 10000, 100000, 1000000 ir 10000000 studentu).
 
