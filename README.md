@@ -1,5 +1,14 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+**Naudojimosi instrukcija**
+
+1. Paleidus programą pasirenkame ar norime sugeneruoti 5 failus su studentų įrašais (jie bus reikalingi, tik tuo atveju jei norėsite įvykdyti programos spartos analizę).
+2. Kitas 'taip/ne' pasirinkimas: 10 išvesties failų sugeneravimas (taip pat reikalingi tik tuo atveju, jei vykdysite spartos analizę).
+3. Dabar, jei vykdysite spartos analizę, galite pasirinkti kurį konteinerį norėtumėte ištirti (1 - vector, 2 - list, 3 -deque). Įveskite 4, jei tyrimo vykdyti nenorite.
+4. Toliau galima išbandyti programos veikima rankiniu būdu. Pasirinkite p (patys), jeigu studentų vardus, pavardes, namų darbų įvertinimus ir egzamino balą norite įvesti patys arba f (iš failo), jeigu norite apdoroti šiuos duomenis iš tekstinio failo.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 **Buvę release'ai**:
 
 v0.1:
@@ -131,14 +140,5 @@ Eksperimentinė v1.1 spartos analizė, priklausomai nuo kompiliatoriaus optimiza
 
 **IŠVADA:**
 - Apskritai su optimizavimo flagais programa veikia greičiau, bet didelio laiko skirtumo tarp O1, O2 ir O3 nepastebėjau.
-
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-**Naudojimosi instrukcija**
-
-1. Paleidus programą pasirenkame ar norime sugeneruoti 5 failus su studentų įrašais (jie bus reikalingi, tik tuo atveju jei norėsite įvykdyti programos spartos analizę).
-2. Kitas 'taip/ne' pasirinkimas: 10 išvesties failų sugeneravimas (taip pat reikalingi tik tuo atveju, jei vykdysite spartos analizę).
-3. Dabar, jei vykdysite spartos analizę, galite pasirinkti kurį konteinerį norėtumėte ištirti (1 - vector, 2 - list, 3 -deque). Įveskite 4, jei tyrimo vykdyti nenorite.
-4. Toliau galima išbandyti programos veikima rankiniu būdu. Pasirinkite p (patys), jeigu studentų vardus, pavardes, namų darbų įvertinimus ir egzamino balą norite įvesti patys arba f (iš failo), jeigu norite apdoroti šiuos duomenis iš tekstinio failo.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
