@@ -45,6 +45,7 @@ v1.5:
 **Testų ir tyrimų rezultatai:**
 
 **v0.4**
+
 Programos spartos analizė
 Failų generavimas:
 - 1000 įrašų - 0.047s;
@@ -61,6 +62,7 @@ Failų apdorojimo laikai (vector konteineris):
 - '10000000.txt' - 91.992s
 
 **v0.5**
+
 Programos spartos analizė
 Failų apdorojimo laikai (deque konteineris):
 - '1000.txt' - 0.014s
@@ -82,6 +84,7 @@ Išvados:
 - išskyrimas į vieną iš dviejų konteinerių pagal vidurkį: greičiausias - deque, lėčiausias - list.
 
 **v1.0**
+
 Programos spartos analizė (lėtesnis kompas)
 Failų apdorojimo laikai (vector konteineris, nauja 2 strategija):
 - '1000.txt' - 0.062s
@@ -108,6 +111,7 @@ Išvada:
 - 2 strategija efektyvesnė su vector ir list konteineriais, vos vos lėtesnė su deque.
 
 **v1.1**
+
 v1.0 (struct) ir v1.1 (class) spartos palyginimas:
 
 ![lyginimas](https://user-images.githubusercontent.com/100161683/172133303-524eecdb-39fe-490f-8113-54f2bc4441a8.png)
