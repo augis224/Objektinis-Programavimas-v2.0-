@@ -61,6 +61,8 @@ Failų apdorojimo laikai (vector konteineris):
 - '1000000.txt' - 9.694s
 - '10000000.txt' - 91.992s
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 **v0.5**
 
 Programos spartos analizė
@@ -82,6 +84,8 @@ Išvados:
 - nuskaitymo laikas tarp konteinerių skiriasi minimaliai;
 - rūšiavimas pagal pavardę: greičiausias - list, lėčiausias - deque;
 - išskyrimas į vieną iš dviejų konteinerių pagal vidurkį: greičiausias - deque, lėčiausias - list.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 **v1.0**
 
@@ -109,6 +113,8 @@ Failų apdorojimo laikai (list konteineris, nauja 2 strategija):
 
 Išvada:
 - 2 strategija efektyvesnė su vector ir list konteineriais, vos vos lėtesnė su deque.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 **v1.1**
 
