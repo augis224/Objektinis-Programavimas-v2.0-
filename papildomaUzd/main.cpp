@@ -14,13 +14,15 @@ typedef map<string, int> StringIntMap;
 void count_words(StringIntMap& words)
 {
     string text;
+    string e = "ei";
     ifstream in1("Tekstas.txt");
     while(in1 >> text)
     {
-        ++words[text];
+        if( text.find(e) != string::npos ) ++words[text];
     }
     in1.close();
 
+    //Besikartojanciu zodziu suskaiciavimas ir isvedimas
     ofstream zodziai("Zodziai.txt");
     for(StringIntMap::iterator it = words.begin(); it!= words.end(); it++)
     {
@@ -53,6 +55,7 @@ void lentele(StringIntMap& words, vector<StringIntMap> Vector)
     }
     in2.close();
 
+    //Lenteles isvedimas
     ofstream lentele("Lentele.txt");
     lentele.width(18); lentele << left << "Words";
     for(int i = 1; i <= count; i++)
@@ -169,10 +172,11 @@ int main()
 
     if(pasirinkimas == 2)
     {
-        regex regUrl1("^www?.(.*)");
-        regex regUrl2("^https?://(.*)");
         string word;
         vector<string> urls;
+        vector<string> domains = {".lt", ".com", ".de", ".net", ".cn", ".uk", ".org", ".info", ".nl", ".eu", ".ru", ".aero", ".asia", ".biz", ".cat", ".com", ".coop", ".store"
+        ".edu", ".gov", ".info", ".int", ".jobs", ".mil", ".mobi", ".museum", ".name", ".pro", ".tel", ".travel", ".co", ".tv", ".fm", ".ly", ".ws", ".me", ".cc", ".site", ".blog"};
+        string dot = ".";
         ifstream ss("Url.txt");
         try
         {
@@ -183,11 +187,19 @@ int main()
             cout << "Klaida: " << txtException << endl;
             return -1;
         }
-
         while(ss >> word)
         {
-            if(regex_match(word, regUrl1) || regex_match(word, regUrl2))
-                urls.push_back(word);
+            if( word.find(dot) != string::npos )
+            {
+                for(auto a: domains)
+                {
+                    if( word.find(a) != string::npos)
+                    {
+                       urls.push_back(word);
+                       break;
+                    }
+                }
+            }
         }
         ss.close();
         cout << "Rasti URL'ai: " << endl;
